@@ -1,0 +1,11 @@
+numpy>=1.26.0  # 1.26.0+ supports Python 3.13
+pandas>=2.2.0   # 2.2.0+ supports Python 3.13
+matplotlib>=3.8.0
+seaborn>=0.13.0
+scikit-learn>=1.4.0  # 1.4.0+ supports Python 3.13
+tensorflow-macos>=2.15.0  # For Mac with Apple Silicon
+tensorflow-metal>=1.1.0  # GPU acceleration on Mac
+ipywidgets>=8.1.0
+joblib>=1.3.2
+jupyter>=1.0.0
+streamlit>=1.32.0  # For the sentiment analysis web interface
