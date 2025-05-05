@@ -13,7 +13,10 @@ MODEL_NAME = "gemini-2.0-flash"
 # Get API key
 def get_api_key():
     api_key = os.getenv("GOOGLE_API_KEY")
-    if not api_key:
+    if api_key:
+        print(f"Loaded API Key: {api_key[:4]}...{api_key[-4:]}")  # Print partially redacted key
+    else:
+        print("API Key not found in environment variables.")
         raise ValueError("GOOGLE_API_KEY not found in environment variables")
     return api_key
 
@@ -29,13 +32,6 @@ def get_gemini_response(user_input, chat_history=None, system_prompt=None, tempe
     # If we have chat history, include it in the request
     contents = []
     
-    # Add system prompt if provided
-    if system_prompt:
-        contents.append({
-            "role": "system",
-            "parts": [{"text": system_prompt}]
-        })
-    
     if chat_history:
         for message in chat_history:
             role = "user" if message.get("role") == "user" else "model"
@@ -50,14 +46,19 @@ def get_gemini_response(user_input, chat_history=None, system_prompt=None, tempe
         "parts": [{"text": user_input}]
     })
     
+    # Construct the data payload
     data = {
-        "contents": contents if contents else [{
-            "parts": [{"text": user_input}]
-        }],
+        "contents": contents,
         "generationConfig": {
             "temperature": float(temperature)
         }
     }
+
+    # Add system instruction if provided
+    if system_prompt:
+        data["systemInstruction"] = {
+             "parts": [{"text": system_prompt}]
+        }
     
     try:
         response = requests.post(url, headers=headers, json=data)
