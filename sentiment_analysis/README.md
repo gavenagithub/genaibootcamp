@@ -20,7 +20,7 @@ A virtual environment is recommended to manage dependencies without affecting ot
 
 ```bash
 # Navigate to the project directory
-cd /path/to/genaibootcamp
+cd /path/to/genaibootcamp/sentiment_analysis
 
 # Create a virtual environment
 python3.10 -m venv new_env
